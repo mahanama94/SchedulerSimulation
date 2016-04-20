@@ -12,23 +12,23 @@ package operatingsystemscheduler;
  */
 public class ExecutionLog {
     
-    private double startTime;
-    private double endTime;
+    private int startTime;
+    private int endTime;
     
-    public ExecutionLog(double start){
+    public ExecutionLog(int start){
         this.startTime = start;
         this.endTime = start;
     }
     
-    public double getStartTime(){
+    public int getStartTime(){
         return this.startTime;
     }
     
-    public double getEndTime(){
+    public int getEndTime(){
         return this.endTime;
     }
     
-    public void end(double end){
+    public void setEndTime(int end){
         this.endTime = end;
     }
     
