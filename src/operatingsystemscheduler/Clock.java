@@ -5,27 +5,41 @@
  */
 package operatingsystemscheduler;
 
+import java.util.Observable;
+
 /**
  *
  * @author bhanuka
  */
-public class Clock{
+public class Clock extends Observable{
     
  
     private static Clock clock = new Clock();
-    private double initTime = -1;
+    private int time;
     
-    private Clock(){
-        this.initTime =System.currentTimeMillis();
+    public Clock(){
+        this.time = -1;
     }
     
-    public static Clock getInstance(){
-        return clock;
+    //<editor-fold defaultstate="collapsed" desc="getters">
+        
+    public int getTime(){
+        return this.time;
     }
     
-    public double getTime(){
-        return System.currentTimeMillis()- this.initTime;
+    //</editor-fold>
+    
+    public void increment(){
+        this.time++;
+        System.out.println("Time : "+ this.getTime());
+        this.setChanged();
+        this.notifyObservers(new Notification("clockNotification", this.getTime()));
     }
     
+    public void increment(int time){
+        for(int i =0; i < time; i++){
+            this.increment();
+        }
+    }
     
 }
