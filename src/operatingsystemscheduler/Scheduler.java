@@ -6,6 +6,8 @@
 package operatingsystemscheduler;
 
 import java.util.Comparator;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.PriorityQueue;
 
 
@@ -14,7 +16,7 @@ import java.util.PriorityQueue;
  * @author Rajith Bhanuka
  */
    
-public class Scheduler extends Thread{
+    public class Scheduler implements Observer{
     
     protected static Comparator<Process> SRTcomparator= new RemainingTimeComparator();
     protected PriorityQueue<Process> readyQueue;
@@ -52,9 +54,7 @@ public class Scheduler extends Thread{
         
         // get the shortest remainig time job
         this.currentProcess = this.readyQueue.poll();
-        this.currentProcess.start(currentTime);
-        
-        
+        this.currentProcess.start(currentTime);             
     }
     
     public void show(){
@@ -65,6 +65,18 @@ public class Scheduler extends Thread{
             process.show();
         }
     }
-    
-    
+
+    @Override
+    public void update(Observable observable, Object arg) {
+        Notification notification = (Notification) arg;
+        int time = notification.getTime();        
+        this.currentProcess.stop(notification.getTime());
+        
+        this.currentProcess= this.readyQueue.poll();
+        
+        if(this.currentProcess!= null){
+            this.currentProcess.start(time);
+        }
+
+    }  
 }
