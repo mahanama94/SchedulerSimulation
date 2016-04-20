@@ -19,7 +19,7 @@ public class OperatingSystemScheduler {
      */
     public static void main(String[] args) {
         
-        Scheduler testScheduler = new Scheduler(3);
+        /*Scheduler testScheduler = new Scheduler(3);
         Process testProcess1 = new Process(1, 0, 20);
         Process testProcess2 = new Process(2, 10, 10);
         Process testProcess3 = new Process(3, 20, 5);
@@ -28,13 +28,17 @@ public class OperatingSystemScheduler {
         /*testProcess1.show();
         testProcess2.show();
         testProcess3.show();
-        */
+        
         
         testScheduler.addProcess(testProcess1);
         testScheduler.addProcess(testProcess2);
         testScheduler.addProcess(testProcess3);
         System.out.println("================================================");
         testScheduler.show();
+        */
+        
+        ProcessSimulator simulator = new ProcessSimulator(5, 10);
+        simulator.start();
         // TODO code application logic here
         
     }
