@@ -5,6 +5,9 @@
  */
 package operatingsystemscheduler;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author bhanuka
@@ -16,17 +19,24 @@ public class OperatingSystemScheduler {
      */
     public static void main(String[] args) {
         
-        Clock c = Clock.getInstance();
-   
-        int i =0;
-        while(i<100000){
-            if(i%1000==0){
-                System.out.println(c.getTime());
-            }
-            i++;
-        }
+        Scheduler testScheduler = new Scheduler(3);
+        Process testProcess1 = new Process(1, 0, 20);
+        Process testProcess2 = new Process(2, 10, 10);
+        Process testProcess3 = new Process(3, 20, 5);
+        //Process testProcess = new Process(1, 100);
         
+        /*testProcess1.show();
+        testProcess2.show();
+        testProcess3.show();
+        */
+        
+        testScheduler.addProcess(testProcess1);
+        testScheduler.addProcess(testProcess2);
+        testScheduler.addProcess(testProcess3);
+        System.out.println("================================================");
+        testScheduler.show();
         // TODO code application logic here
+        
     }
     
 }
