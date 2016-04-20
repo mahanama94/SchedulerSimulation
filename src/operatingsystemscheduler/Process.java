@@ -6,13 +6,15 @@
 package operatingsystemscheduler;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 /**
  *
  * @author bhanuka
  */
-public class Process{
+public class Process extends Observable implements Observer{
 
     private int pId;
     private int arrivalTime;
@@ -26,7 +28,7 @@ public class Process{
     public Process(int pId, int simulatorTime){
         this.pId =pId;
         Random randomGen = new Random();
-        this.expectedTime = randomGen.nextInt(20);
+        this.expectedTime = 1+randomGen.nextInt(simulatorTime-1);
         this.remainingTime = this.expectedTime;
         this.arrivalTime = randomGen.nextInt(simulatorTime - this.getExpectedTime());
         this.executionLog = new ArrayList();
@@ -136,6 +138,7 @@ public class Process{
     public void show(){
         System.out.println("Process ID : "+ this.pId);
         System.out.println("Status Active : "+ this.active);
+        System.out.println("Finished : "+ this.finished);
         System.out.println("Arrival time : "+ this.getArrivalTime());
         System.out.println("Remaining time : "+ this.getRemainingTime());
         System.out.println("Expected time: "+ this.getExpectedTime());
@@ -147,6 +150,28 @@ public class Process{
             System.out.println("=================================");
         }
         System.out.println("========== End of Logs ==========");
+    }
+
+    @Override
+    public void update(Observable observable, Object arg) {
+        
+        Notification notification = (Notification)arg;
+        if(this.active && "clockNotification".equals(notification.getType())){
+            //process is active
+            //compare the elapsed time with the remainig time
+            
+            ExecutionLog lastLog =this.executionLog.get(this.executionLog.size()-1);
+            
+            if(this.getRemainingTime()==(notification.getTime() -lastLog.getStartTime())){
+                
+                // process has been completed, change attributes
+                this.finished = true;
+                
+                // notify oBservers - scheduler
+                this.setChanged();
+                this.notifyObservers(new Notification("finishProcess", notification.getTime()));
+            }
+        }
     }
     
 }
