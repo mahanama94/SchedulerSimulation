@@ -7,6 +7,7 @@ package controller;
 import operatingsystemscheduler.ProcessSimulator;
 import operatingsystemscheduler.Process;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 /**
  *
  * @author wolfpack
@@ -49,5 +50,18 @@ public class Controller {
         }
         
         return processDetails;
+    }
+    
+    public static String[][] getReadyQueue(){
+        ArrayList<Process> readyQueue = new ArrayList(ProcessSimulator.getScheduler().getReadyQueue());
+        String[][] readyQueueDet = new String[readyQueue.size()][2];
+        
+        for(int i=0; i<readyQueue.size(); i++){
+                readyQueueDet [i][0]=Integer.toString(readyQueue.get(i).getProcessId());
+                readyQueueDet [i][1]=Integer.toString(readyQueue.get(i).getRemainingTime());
+        }
+        
+        return readyQueueDet;
+        
     }
 }
