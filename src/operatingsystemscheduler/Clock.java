@@ -14,11 +14,12 @@ import java.util.Observable;
 public class Clock extends Observable{
     
  
-    private static Clock clock = new Clock();
     private int time;
+    private int endTime;
     
-    public Clock(){
+    public Clock(int endTime){
         this.time = -1;
+        this.endTime = endTime;
     }
     
     //<editor-fold defaultstate="collapsed" desc="getters">
@@ -27,13 +28,22 @@ public class Clock extends Observable{
         return this.time;
     }
     
+    public int getEndTime(){
+        return this.endTime;
+    }
+    
     //</editor-fold>
     
     public void increment(){
         this.time++;
         System.out.println("Time : "+ this.getTime());
         this.setChanged();
-        this.notifyObservers(new Notification("clockNotification", this.getTime()));
+        if(this.getTime()==this.getEndTime()){
+            this.notifyObservers(new Notification("endOfSimulation", this.getTime()));
+        }
+        else{
+            this.notifyObservers(new Notification("clockNotification", this.getTime()));
+        }
     }
     
     public void increment(int time){

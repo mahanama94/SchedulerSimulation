@@ -88,6 +88,12 @@ public class Process extends Observable implements Observer{
     }
     
     public int getWatitingTime(int simulatorTime){
+        
+        //Process has not arrived yet
+        if(this.arrivalTime> simulatorTime){
+            return 0;
+        }
+        
         // waiting time = elapsed time - executedTime
         return (simulatorTime - this.arrivalTime) - (this.expectedTime - this.remainingTime);
     }

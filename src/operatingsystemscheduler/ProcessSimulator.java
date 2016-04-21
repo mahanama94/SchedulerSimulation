@@ -25,10 +25,11 @@ public class ProcessSimulator implements Observer{
     
     public ProcessSimulator(int numberOfProcesses, int simulationTime){
         this.processes = new ArrayList(numberOfProcesses);
-        this.simulatorClock = new Clock();
+        this.simulatorClock = new Clock(simulationTime);
         this.simulationTime = simulationTime;
         this.scheduler = new Scheduler(numberOfProcesses);
         this.simulatorClock.addObserver(this);
+        simulatorClock.addObserver(scheduler);
         
         // add processes to the simulation
         for(int i=0; i<numberOfProcesses; i++){
@@ -93,10 +94,10 @@ public class ProcessSimulator implements Observer{
                     this.scheduler.addProcess(process);
                 }
             }
-            if(time == this.simulationTime){
-                //this.scheduler.show();
-                this.show();
-            }
+        }
+        if("endOfSimulation".equals(notification.getType())){
+            //this.scheduler.show();
+            this.show();
         }
     }
     

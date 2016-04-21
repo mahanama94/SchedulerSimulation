@@ -33,8 +33,14 @@ import java.util.PriorityQueue;
         this.currentProcess = this.readyQueue.poll();
     }
     
+    //<editor-fold defaultstate="collapsed" desc="getters">
+    
     public Process getCurrentProcess(){
         return this.currentProcess;
+    }
+    
+    public PriorityQueue<Process> getReadyQueue(){
+        return this.readyQueue;
     }
     
     public void start(int simulatorTime){
@@ -42,6 +48,8 @@ import java.util.PriorityQueue;
             this.currentProcess.start(simulatorTime);
         }
     }
+    
+    //</editor-fold>
     
     public void addProcess(Process newProcess){
         
@@ -70,17 +78,26 @@ import java.util.PriorityQueue;
         }
     }
 
+    
     @Override
     public void update(Observable observable, Object arg) {
         Notification notification = (Notification) arg;
         int time = notification.getTime();        
-        this.currentProcess.stop(notification.getTime());
         
-        this.currentProcess= this.readyQueue.poll();
-        
-        if(this.currentProcess!= null){
-            this.currentProcess.start(time);
-        }
+        if("finishProcess".equals(notification.getType())){
+            this.currentProcess.stop(notification.getTime());
 
+            this.currentProcess= this.readyQueue.poll();
+
+            if(this.currentProcess!= null){
+                this.currentProcess.start(time);
+            }
+        }
+        else if("endOfSimulation".equals(notification.getType())){
+            System.out.println("End of Simulation");
+            if(this.currentProcess!=null){
+                this.currentProcess.stop(time);
+            }
+        }
     }  
 }
