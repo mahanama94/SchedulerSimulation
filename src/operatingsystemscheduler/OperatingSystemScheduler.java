@@ -7,7 +7,7 @@ package operatingsystemscheduler;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import view.Simulation;
 /**
  *
  * @author bhanuka
@@ -36,9 +36,14 @@ public class OperatingSystemScheduler {
         System.out.println("================================================");
         testScheduler.show();
         */
-        
+        Simulation sm = new Simulation();
+        sm.setVisible(true);
         ProcessSimulator simulator = new ProcessSimulator(5, 10);
-        simulator.start();
+        simulator.goTo(5);
+        System.out.println("5 second");
+        simulator.show();
+        simulator.goTo(10);
+        
         // TODO code application logic here
         
     }

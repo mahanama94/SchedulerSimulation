@@ -58,14 +58,17 @@ public class ProcessSimulator extends Thread implements Observer{
     
     @Override
     public void run(){
-        this.show();
-        for(int i =0 ; i <= this.getSimulationTime(); i++){
-            try {
-                this.sleep(100);
-                this.getClock().increment();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ProcessSimulator.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            this.sleep(100);
+            this.getClock().increment();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ProcessSimulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void goTo(int time){
+        for(int i=this.getCurrentTime(); i< time; i ++){
+            this.run();
         }
     }
     
