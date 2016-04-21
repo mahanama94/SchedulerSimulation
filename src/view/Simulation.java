@@ -5,6 +5,8 @@
  */
 package view;
 
+import controller.Controller;
+
 /**
  *
  * @author Rajith Bhanuka
@@ -16,6 +18,8 @@ public class Simulation extends javax.swing.JFrame {
      */
     public Simulation() {
         initComponents();
+        labelSimTime.setText(Integer.toString(Controller.getSimTime()));
+        
     }
 
     /**
@@ -27,21 +31,95 @@ public class Simulation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        labelSimTime = new javax.swing.JLabel();
+        labelCurrent = new javax.swing.JLabel();
+        labelPId = new javax.swing.JLabel();
+        buttonEnd = new javax.swing.JButton();
+        button1s = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Process ID", "Arrival TIme", "Burst Time", "Remaing Time"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, 280));
+
+        jLabel1.setText("Current Process ID");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+
+        jLabel2.setText("Simulation Time");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        jLabel3.setText("Current Time");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+        getContentPane().add(labelSimTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, -1, -1));
+        getContentPane().add(labelCurrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, -1));
+        getContentPane().add(labelPId, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, -1, -1));
+
+        buttonEnd.setText("Jump to End");
+        buttonEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEndActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+
+        button1s.setText("Proceed (1s)");
+        button1s.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1sActionPerformed(evt);
+            }
+        });
+        getContentPane().add(button1s, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEndActionPerformed
+      
+        while(Controller.getTime()!=Controller.getSimTime()){
+            this.button1sActionPerformed(evt);
+        }
+    }//GEN-LAST:event_buttonEndActionPerformed
+
+    private void button1sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1sActionPerformed
+        Controller.incrementTime();
+        labelCurrent.setText(Integer.toString(Controller.getTime()));
+
+        if(Controller.getSimTime()==Controller.getTime()){
+            this.button1s.setEnabled(false);
+            this.buttonEnd.setEnabled(false);
+        
+        }
+        
+        this.labelPId.setText(Integer.toString(Controller.getCurrentProcessID()));
+    }//GEN-LAST:event_button1sActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +157,15 @@ public class Simulation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button1s;
+    private javax.swing.JButton buttonEnd;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labelCurrent;
+    private javax.swing.JLabel labelPId;
+    private javax.swing.JLabel labelSimTime;
     // End of variables declaration//GEN-END:variables
 }
