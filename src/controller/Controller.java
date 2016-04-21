@@ -56,6 +56,24 @@ public class Controller {
         return processDetails;
     }
     
+        public static String[][] getFinishedProcessDetails(){
+        
+        ArrayList<Process> processList = ProcessSimulator.getProcessList();
+        String[][] processDetails = new String[ProcessSimulator.getNoOfProcesses()][4];
+        int i =0;
+        for(Process process:processList){
+            if(process.isFinished()){
+                processDetails[i][0]=Integer.toString(process.getProcessId());
+                processDetails[i][1]=Integer.toString(process.getWatitingTime(ProcessSimulator.getCurrentTime()));
+                processDetails[i][2]=Integer.toString(process.getTurnoaroundTime(ProcessSimulator.getCurrentTime()));
+                processDetails[i][3]=Integer.toString(process.getFinishedTime());
+                i++;
+            }
+        }
+        
+        return processDetails;
+    }
+        
     public static String[][] getReadyQueue(){
         ArrayList<Process> readyQueue = new ArrayList(ProcessSimulator.getScheduler().getReadyQueue());
         String[][] readyQueueDet = new String[readyQueue.size()][2];
@@ -79,4 +97,5 @@ public class Controller {
         Launcher lr = new Launcher();
         lr.setVisible(true);
     }
+   
 }
