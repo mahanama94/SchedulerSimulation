@@ -140,7 +140,7 @@ public class Process extends Observable implements Observer{
      */
     public void stop(int simulatorTime){
         ExecutionLog lastLog =this.executionLog.get(this.executionLog.size()-1);
-        this.setRemainingTime(this.getRemainingTime() - (simulatorTime - lastLog.getStartTime()));
+        //this.setRemainingTime(this.getRemainingTime() - (simulatorTime - lastLog.getStartTime()));
         this.active = false;
         lastLog.setEndTime(simulatorTime);
     }
@@ -166,13 +166,27 @@ public class Process extends Observable implements Observer{
     public void update(Observable observable, Object arg) {
         
         Notification notification = (Notification)arg;
-        if(this.active && "clockNotification".equals(notification.getType())){
+        if(this.active && ("endOfSimulation".equals(notification.getType()) || "clockNotification".equals(notification.getType())) && notification.isActive()){
             //process is active
             //compare the elapsed time with the remainig time
             
             ExecutionLog lastLog =this.executionLog.get(this.executionLog.size()-1);
             
-            if(this.getRemainingTime()==(notification.getTime() -lastLog.getStartTime())){
+            this.setRemainingTime(this.getRemainingTime() - 1);
+            
+            if(this.getRemainingTime()== 0){
+                
+                // process has been completed, change attributes
+                this.finished = true;
+                
+                // notify oBservers - scheduler
+                this.setChanged();
+                notification.deactivate();
+                this.notifyObservers(new Notification("finishProcess", notification.getTime()));
+                
+                
+            }
+            /*if(this.getRemainingTime()==(notification.getTime() -lastLog.getStartTime())){
                 
                 // process has been completed, change attributes
                 this.finished = true;
@@ -180,7 +194,7 @@ public class Process extends Observable implements Observer{
                 // notify oBservers - scheduler
                 this.setChanged();
                 this.notifyObservers(new Notification("finishProcess", notification.getTime()));
-            }
+            }*/
         }
     }
     

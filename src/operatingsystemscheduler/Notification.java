@@ -13,10 +13,16 @@ public class Notification {
     
     private String type;
     private int time;
+    private boolean active;
     
     public Notification(String type, int time){
         this.time = time;
         this.type = type;
+        this.active = true;
+    }
+    
+    public boolean isActive(){
+        return this.active;
     }
     
     public String getType(){
@@ -27,4 +33,7 @@ public class Notification {
         return this.time;
     }
     
+    public void deactivate(){
+        this.active = false;
+    }
 }
