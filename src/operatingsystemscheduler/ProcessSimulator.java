@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class ProcessSimulator implements Observer{
     
-    private ArrayList<Process> processes;
+    private static ArrayList<Process> processes;
     private static int simulationTime;
     private static Clock simulatorClock;
     private static Scheduler scheduler;
@@ -57,6 +57,14 @@ public class ProcessSimulator implements Observer{
     
     public static Scheduler getScheduler(){
         return scheduler;
+    }
+    
+    public static int getNoOfProcesses(){
+        return processes.size();
+    }
+    
+    public static ArrayList<Process> getProcessList(){
+        return processes;
     }
     
     //</editor-fold>

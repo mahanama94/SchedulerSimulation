@@ -5,8 +5,10 @@
  */
 package operatingsystemscheduler;
 
+import controller.Controller;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Arrays;
 import view.Simulation;
 /**
  *
@@ -42,6 +44,7 @@ public class OperatingSystemScheduler {
         sm.setVisible(true);
         System.out.println("5 second");
         simulator.show();
+        //System.out.println(Arrays.deepToString(Controller.getProcessDetails()));
        
         
         // TODO code application logic here
