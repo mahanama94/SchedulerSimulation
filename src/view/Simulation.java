@@ -6,7 +6,7 @@
 package view;
 
 import controller.Controller;
-
+import javax.swing.JTable;
 /**
  *
  * @author Rajith Bhanuka
@@ -20,6 +20,11 @@ public class Simulation extends javax.swing.JFrame {
         initComponents();
         labelSimTime.setText(Integer.toString(Controller.getSimTime()));
         
+        String[] columns = {"PID","Arrival Time","Burst Time","Remaining Time"};
+        String[][] procDet = Controller.getProcessDetails();
+        this.processTable = new JTable(procDet,columns);
+        jScrollPane1.setViewportView(processTable);
+        
     }
 
     /**
@@ -32,7 +37,7 @@ public class Simulation extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        processTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -45,30 +50,17 @@ public class Simulation extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        processTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Process ID", "Arrival TIme", "Burst Time", "Remaing Time"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(processTable);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, 280));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, 140));
 
         jLabel1.setText("Current Process ID");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
@@ -111,6 +103,11 @@ public class Simulation extends javax.swing.JFrame {
     private void button1sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1sActionPerformed
         Controller.incrementTime();
         labelCurrent.setText(Integer.toString(Controller.getTime()));
+        String[] columns = {"PID","Arrival Time","Burst Time","Remaining Time"};
+        String[][] procDet = Controller.getProcessDetails();
+        this.processTable = new JTable(procDet,columns);
+        jScrollPane1.setViewportView(processTable);
+        
 
         if(Controller.getSimTime()==Controller.getTime()){
             this.button1s.setEnabled(false);
@@ -163,9 +160,9 @@ public class Simulation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelCurrent;
     private javax.swing.JLabel labelPId;
     private javax.swing.JLabel labelSimTime;
+    private javax.swing.JTable processTable;
     // End of variables declaration//GEN-END:variables
 }
