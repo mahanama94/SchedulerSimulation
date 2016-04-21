@@ -98,7 +98,7 @@ public class Process extends Observable implements Observer{
             return (simulatorTime - this.arrivalTime) - (this.expectedTime - this.remainingTime);
         }
         else{
-            return this.getFinishedTime() - this.getArrivalTime();
+            return this.getFinishedTime() - this.getArrivalTime()-this.getExpectedTime();
         }
     }
     
