@@ -15,14 +15,15 @@ import java.util.logging.Logger;
  *
  * @author Rajith Bhanuka
  */
-public class ProcessSimulator extends Thread implements Observer{
+public class ProcessSimulator implements Observer{
     
     private ArrayList<Process> processes;
-    private int simulationTime;
-    private Clock simulatorClock;
-    private Scheduler scheduler;
+    private static int simulationTime;
+    private static Clock simulatorClock;
+    private static Scheduler scheduler;
     
-    ProcessSimulator(int numberOfProcesses, int simulationTime){
+    
+    public ProcessSimulator(int numberOfProcesses, int simulationTime){
         this.processes = new ArrayList(numberOfProcesses);
         this.simulatorClock = new Clock();
         this.simulationTime = simulationTime;
@@ -38,37 +39,38 @@ public class ProcessSimulator extends Thread implements Observer{
         }
         
     }
+
     
     //<editor-fold defaultstate="collapsed" desc="getters">
     
-    public Clock getClock(){
-        return this.simulatorClock;
+    public static Clock getClock(){
+        return simulatorClock;
     }
     
-    public int getSimulationTime(){
-        return this.simulationTime;
+    public static int getSimulationTime(){
+        return simulationTime;
     }
     
-    public int getCurrentTime(){
-        return this.getClock().getTime();
+    public static int getCurrentTime(){
+        return getClock().getTime();
+    }
+    
+    public static Scheduler getScheduler(){
+        return scheduler;
     }
     
     //</editor-fold>
     
     
-    @Override
-    public void run(){
-        try {
-            this.sleep(100);
-            this.getClock().increment();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ProcessSimulator.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    public static void run(){
+            getClock().increment();
+        
     }
     
-    public void goTo(int time){
-        for(int i=this.getCurrentTime(); i< time; i ++){
-            this.run();
+    public static void goTo(int time){
+        for(int i= getCurrentTime(); i< time; i ++){
+            run();
         }
     }
     
@@ -84,7 +86,6 @@ public class ProcessSimulator extends Thread implements Observer{
                 }
             }
             if(time == this.simulationTime){
-                this.interrupt();
                 //this.scheduler.show();
                 this.show();
             }

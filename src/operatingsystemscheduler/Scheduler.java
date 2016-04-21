@@ -33,6 +33,10 @@ import java.util.PriorityQueue;
         this.currentProcess = this.readyQueue.poll();
     }
     
+    public Process getCurrentProcess(){
+        return this.currentProcess;
+    }
+    
     public void start(int simulatorTime){
         if(this.currentProcess!=null){
             this.currentProcess.start(simulatorTime);

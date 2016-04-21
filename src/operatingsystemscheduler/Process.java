@@ -75,6 +75,10 @@ public class Process extends Observable implements Observer{
         return -1;
     }
     
+    public int getProcessId(){
+        return this.pId;
+    }
+    
     public boolean isFinished(){
         return this.finished;
     }

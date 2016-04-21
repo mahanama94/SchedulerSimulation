@@ -36,13 +36,13 @@ public class OperatingSystemScheduler {
         System.out.println("================================================");
         testScheduler.show();
         */
+
+        ProcessSimulator simulator = new ProcessSimulator(5, 10);
         Simulation sm = new Simulation();
         sm.setVisible(true);
-        ProcessSimulator simulator = new ProcessSimulator(5, 10);
-        simulator.goTo(5);
         System.out.println("5 second");
         simulator.show();
-        simulator.goTo(10);
+       
         
         // TODO code application logic here
         
