@@ -7,6 +7,7 @@ package view;
 
 import controller.Controller;
 import javax.swing.JTable;
+import operatingsystemscheduler.ProcessSimulator;
 /**
  *
  * @author Rajith Bhanuka
@@ -24,6 +25,13 @@ public class Simulation extends javax.swing.JFrame {
         String[][] procDet = Controller.getProcessDetails();
         this.processTable = new JTable(procDet,columns);
         jScrollPane1.setViewportView(processTable);
+        
+        String[] columnsReady = {"PID","Remaining Time"};
+        String[][] readyDet = Controller.getReadyQueue();
+        this.readyTable = new JTable(readyDet,columnsReady);
+        jScrollPane2.setViewportView(readyTable);
+        
+        
         
     }
 
@@ -46,6 +54,9 @@ public class Simulation extends javax.swing.JFrame {
         labelPId = new javax.swing.JLabel();
         buttonEnd = new javax.swing.JButton();
         button1s = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        readyTable = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -62,8 +73,8 @@ public class Simulation extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, 140));
 
-        jLabel1.setText("Current Process ID");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jLabel1.setText("Ready Queue :");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, -1, -1));
 
         jLabel2.setText("Simulation Time");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
@@ -90,6 +101,24 @@ public class Simulation extends javax.swing.JFrame {
         });
         getContentPane().add(button1s, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
+        readyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(readyTable);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 430, 100));
+
+        jLabel4.setText("Current Process ID");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -103,9 +132,10 @@ public class Simulation extends javax.swing.JFrame {
     private void button1sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1sActionPerformed
         Controller.incrementTime();
         labelCurrent.setText(Integer.toString(Controller.getTime()));
-        String[] columns = {"PID","Arrival Time","Burst Time","Remaining Time"};
+        
+        String[] columnsPro = {"PID","Arrival Time","Burst Time","Remaining Time"};
         String[][] procDet = Controller.getProcessDetails();
-        this.processTable = new JTable(procDet,columns);
+        this.processTable = new JTable(procDet,columnsPro);
         jScrollPane1.setViewportView(processTable);
         
 
@@ -116,6 +146,12 @@ public class Simulation extends javax.swing.JFrame {
         }
         
         this.labelPId.setText(Integer.toString(Controller.getCurrentProcessID()));
+        
+        String[] columnsReady = {"PID","Remaining Time"};
+        String[][] readyDet = Controller.getReadyQueue();
+        this.readyTable = new JTable(readyDet,columnsReady);
+        jScrollPane2.setViewportView(readyTable);
+        
     }//GEN-LAST:event_button1sActionPerformed
 
     /**
@@ -159,10 +195,13 @@ public class Simulation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelCurrent;
     private javax.swing.JLabel labelPId;
     private javax.swing.JLabel labelSimTime;
     private javax.swing.JTable processTable;
+    private javax.swing.JTable readyTable;
     // End of variables declaration//GEN-END:variables
 }
