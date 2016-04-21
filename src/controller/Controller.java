@@ -5,7 +5,8 @@
  */
 package controller;
 import operatingsystemscheduler.ProcessSimulator;
-
+import operatingsystemscheduler.Process;
+import java.util.ArrayList;
 /**
  *
  * @author wolfpack
@@ -33,5 +34,20 @@ public class Controller {
     }else{
             return 0;
     }
+    }
+    
+    public static String[][] getProcessDetails(){
+        
+        ArrayList<Process> processList = ProcessSimulator.getProcessList();
+        String[][] processDetails = new String[ProcessSimulator.getNoOfProcesses()][4];
+        
+        for(int i=0; i<ProcessSimulator.getNoOfProcesses(); i++){
+                processDetails[i][0]=Integer.toString(processList.get(i).getProcessId());
+                processDetails[i][1]=Integer.toString(processList.get(i).getArrivalTime());
+                processDetails[i][2]=Integer.toString(processList.get(i).getExpectedTime());
+                processDetails[i][3]=Integer.toString(processList.get(i).getRemainingTime());
+        }
+        
+        return processDetails;
     }
 }
