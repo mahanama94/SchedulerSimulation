@@ -93,9 +93,13 @@ public class Process extends Observable implements Observer{
         if(this.arrivalTime> simulatorTime){
             return 0;
         }
-        
-        // waiting time = elapsed time - executedTime
-        return (simulatorTime - this.arrivalTime) - (this.expectedTime - this.remainingTime);
+        else if(!this.isFinished()){
+            // waiting time = elapsed time - executedTime
+            return (simulatorTime - this.arrivalTime) - (this.expectedTime - this.remainingTime);
+        }
+        else{
+            return this.getFinishedTime() - this.getArrivalTime();
+        }
     }
     
     public int getTurnoaroundTime(int simulatorTime){
