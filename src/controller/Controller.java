@@ -8,11 +8,15 @@ import operatingsystemscheduler.ProcessSimulator;
 import operatingsystemscheduler.Process;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import view.*;
 /**
  *
  * @author wolfpack
  */
 public class Controller {
+    
+    //private static Simulation sm;
+    
     public static void incrementTime(){
         ProcessSimulator.run();
     }
@@ -63,5 +67,16 @@ public class Controller {
         
         return readyQueueDet;
         
+    }
+    
+    public static void createSimulator(int processNo, int time){
+        ProcessSimulator simulator = new ProcessSimulator(processNo, time);
+        Simulation sm =new Simulation();
+        sm.setVisible(true);
+    }
+    
+    public static void launch(){
+        Launcher lr = new Launcher();
+        lr.setVisible(true);
     }
 }
