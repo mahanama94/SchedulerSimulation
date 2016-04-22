@@ -8,6 +8,7 @@ import operatingsystemscheduler.ProcessSimulator;
 import operatingsystemscheduler.Process;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import operatingsystemscheduler.ExecutionLog;
 import view.*;
 /**
  *
@@ -56,7 +57,7 @@ public class Controller {
         return processDetails;
     }
     
-        public static String[][] getFinishedProcessDetails(){
+    public static String[][] getFinishedProcessDetails(){
         
         ArrayList<Process> processList = ProcessSimulator.getProcessList();
         String[][] processDetails = new String[ProcessSimulator.getNoOfProcesses()][4];
@@ -85,6 +86,21 @@ public class Controller {
         
         return readyQueueDet;
         
+    }
+    
+    public static String[][] getProcessLogs(int processId){
+        
+        ArrayList<ExecutionLog> executionLogs = ProcessSimulator.getProcessList().get(processId-1).getExecutionLog();
+        String[][] logDetails = new String[executionLogs.size()][2];
+        int i =0;
+        for(ExecutionLog log:executionLogs){
+
+            logDetails[i][0]=Integer.toString(log.getStartTime());
+            logDetails[i][1]=Integer.toString(log.getEndTime());
+            i++;
+        }
+        
+        return logDetails;
     }
     
     public static void createSimulator(int processNo, int time){
