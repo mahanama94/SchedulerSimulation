@@ -15,6 +15,7 @@ import operatingsystemscheduler.ProcessSimulator;
  */
 public class Simulation extends javax.swing.JFrame {
 
+    String[] ganttChartData;
     JLabel[] labelList = new JLabel[48];
     /**
      * Creates new form Simulation
@@ -81,7 +82,8 @@ public class Simulation extends javax.swing.JFrame {
         labelList[45]=lb45;
         labelList[46]=lb46;
         labelList[47]=lb47;
-     
+        
+        this.ganttChartData = new String[Controller.getSimTime() + 1];
                 
         for(JLabel lb : labelList){
             lb.setVisible(false);
@@ -682,8 +684,16 @@ public class Simulation extends javax.swing.JFrame {
 
     private void button1sActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1sActionPerformed
         Controller.incrementTime();
+        
+        /**
+         * Update labels
+         */
+        this.labelPId.setText(Integer.toString(Controller.getCurrentProcessID()));
         labelCurrent.setText(Integer.toString(Controller.getTime()));
         
+        /**
+         * Update process Details table 
+         */
         String[] columnsPro = {"PID","Arrival Time","Burst Time","Remaining Time"};
         String[][] procDet = Controller.getProcessDetails();
         this.processTable = new JTable(procDet,columnsPro);
@@ -696,21 +706,40 @@ public class Simulation extends javax.swing.JFrame {
         
         }
         
-        this.labelPId.setText(Integer.toString(Controller.getCurrentProcessID()));
         
+        /**
+         * Update Ready processes table
+         */
         String[] columnsReady = {"PID","Remaining Time"};
         String[][] readyDet = Controller.getReadyQueue();
         this.readyTable = new JTable(readyDet,columnsReady);
         jScrollPane2.setViewportView(readyTable);
         
+        /**
+         * Update finished processes table
+         */
         String[] columnsFinished = {"PID","Waiting Time","Turnaround Time","Finished Time"};
         String[][] finishedDet = Controller.getFinishedProcessDetails();
         this.tableFinished = new JTable(finishedDet,columnsFinished);
         jScrollPane3.setViewportView(tableFinished);
         
-        if(Controller.getSimTime()<=47 && Controller.getTime()!=Controller.getSimTime()){
-            labelList[Controller.getTime()].setText(Integer.toString(Controller.getCurrentProcessID()));
-            labelList[Controller.getTime()].setVisible(true);
+        /**
+         * Update Gantt chart data
+         */
+    
+        this.ganttChartData[Controller.getTime()] = Integer.toString(Controller.getCurrentProcessID());
+        
+        if(Controller.getTime()>47){
+            int j =0;
+            for(int i= Controller.getTime()-47; i <= Controller.getTime(); i++){
+                this.labelList[j].setText(this.ganttChartData[i]);
+                this.labelList[j].setVisible(true);
+                j++;
+            }
+        }
+        else{
+            this.labelList[Controller.getTime()].setText(Integer.toString(Controller.getCurrentProcessID()));
+            this.labelList[Controller.getTime()].setVisible(true);
         }
         
     }//GEN-LAST:event_button1sActionPerformed
