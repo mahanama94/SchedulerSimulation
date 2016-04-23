@@ -8,6 +8,7 @@ package view;
 import controller.Controller;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JOptionPane;
 import operatingsystemscheduler.ProcessSimulator;
 /**
  *
@@ -168,6 +169,8 @@ public class Simulation extends javax.swing.JFrame {
         lb45 = new javax.swing.JLabel();
         lb46 = new javax.swing.JLabel();
         lb47 = new javax.swing.JLabel();
+        buttonJumpTo = new javax.swing.JButton();
+        textJumpTo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -441,6 +444,13 @@ public class Simulation extends javax.swing.JFrame {
         lb47.setText("1");
         lb47.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        buttonJumpTo.setText("Jump To");
+        buttonJumpTo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonJumpToActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -457,17 +467,29 @@ public class Simulation extends javax.swing.JFrame {
                 .addComponent(jLabel1))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(buttonEnd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4))
+                            .addGap(2, 2, 2))
+                        .addComponent(button1s, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonJumpTo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(button1s)
-                    .addComponent(buttonEnd)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textJumpTo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
@@ -600,16 +622,20 @@ public class Simulation extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(26, 26, 26)
                                 .addComponent(jLabel4)
-                                .addGap(46, 46, 46)
+                                .addGap(36, 36, 36)
                                 .addComponent(button1s)
-                                .addGap(27, 27, 27)
-                                .addComponent(buttonEnd)
-                                .addGap(17, 17, 17)
-                                .addComponent(jButton1))
+                                .addGap(11, 11, 11)
+                                .addComponent(buttonJumpTo)
+                                .addGap(9, 9, 9)
+                                .addComponent(buttonEnd))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
-                                .addComponent(labelPId, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(labelPId, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77)
+                                .addComponent(textJumpTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton1)))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
@@ -703,6 +729,8 @@ public class Simulation extends javax.swing.JFrame {
         if(Controller.getSimTime()==Controller.getTime()){
             this.button1s.setEnabled(false);
             this.buttonEnd.setEnabled(false);
+            this.buttonJumpTo.setEnabled(false);
+            this.textJumpTo.setEnabled(false);
         
         }
         
@@ -749,6 +777,22 @@ public class Simulation extends javax.swing.JFrame {
         logView.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void buttonJumpToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonJumpToActionPerformed
+        int jumpToTime = Integer.parseInt(this.textJumpTo.getText());
+        if(jumpToTime <= Controller.getTime()){
+            JOptionPane.showMessageDialog(this,"Jump to time should be greater than current time","Warning",2);
+        }
+        else if(jumpToTime > Controller.getSimTime()){
+            JOptionPane.showMessageDialog(this,"Jump to time should be lesser than the Simulation Time","Warning",2);
+        }else{
+            while(Controller.getTime()!=jumpToTime){
+                this.button1sActionPerformed(evt);
+            }
+        }
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonJumpToActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -787,6 +831,7 @@ public class Simulation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button1s;
     private javax.swing.JButton buttonEnd;
+    private javax.swing.JButton buttonJumpTo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -853,5 +898,6 @@ public class Simulation extends javax.swing.JFrame {
     private javax.swing.JTable processTable;
     private javax.swing.JTable readyTable;
     private javax.swing.JTable tableFinished;
+    private javax.swing.JTextField textJumpTo;
     // End of variables declaration//GEN-END:variables
 }
