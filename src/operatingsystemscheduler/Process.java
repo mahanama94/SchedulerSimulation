@@ -42,6 +42,14 @@ public class Process extends Observable implements Observer{
         this.executionLog = new ArrayList();
     }
     
+    public Process(int pId, int arrivalTime, int expectedTime, int remainingTime ){
+        this.pId = pId;
+        this.arrivalTime = arrivalTime;
+        this.expectedTime= expectedTime;
+        this.remainingTime = remainingTime;
+        this.executionLog = new ArrayList();
+    }
+    
     //</editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="getters" >
