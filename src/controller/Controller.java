@@ -7,7 +7,6 @@ package controller;
 import operatingsystemscheduler.ProcessSimulator;
 import operatingsystemscheduler.Process;
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 import operatingsystemscheduler.ExecutionLog;
 import view.*;
 /**
@@ -16,27 +15,32 @@ import view.*;
  */
 public class Controller {
     
+    private static ProcessSimulator processSimulator;
+    
     //private static Simulation sm;
+    public Controller(){
+        
+    }
     
     public static void incrementTime(){
-        ProcessSimulator.run();
+        processSimulator.run();
     }
     
     public static int getTime(){
-        return ProcessSimulator.getClock().getTime();
+        return processSimulator.getClock().getTime();
     }
     
     public static int getSimTime(){
-        return ProcessSimulator.getSimulationTime();
+        return processSimulator.getSimulationTime();
     }
     
     public static void jumptoEnd(){
-        ProcessSimulator.goTo(getSimTime());
+        processSimulator.goTo(getSimTime());
     }
     
     public static int getCurrentProcessID(){
-        if(ProcessSimulator.getScheduler().getCurrentProcess()!=null){
-            return ProcessSimulator.getScheduler().getCurrentProcess().getProcessId();
+        if(processSimulator.getScheduler().getCurrentProcess()!=null){
+            return processSimulator.getScheduler().getCurrentProcess().getProcessId();
     }else{
             return 0;
     }
@@ -44,10 +48,10 @@ public class Controller {
     
     public static String[][] getProcessDetails(){
         
-        ArrayList<Process> processList = ProcessSimulator.getProcessList();
-        String[][] processDetails = new String[ProcessSimulator.getNoOfProcesses()][4];
+        ArrayList<Process> processList = processSimulator.getProcessList();
+        String[][] processDetails = new String[processSimulator.getNoOfProcesses()][4];
         
-        for(int i=0; i<ProcessSimulator.getNoOfProcesses(); i++){
+        for(int i=0; i<processSimulator.getNoOfProcesses(); i++){
                 processDetails[i][0]=Integer.toString(processList.get(i).getProcessId());
                 processDetails[i][1]=Integer.toString(processList.get(i).getArrivalTime());
                 processDetails[i][2]=Integer.toString(processList.get(i).getExpectedTime());
@@ -59,14 +63,14 @@ public class Controller {
     
     public static String[][] getFinishedProcessDetails(){
         
-        ArrayList<Process> processList = ProcessSimulator.getProcessList();
-        String[][] processDetails = new String[ProcessSimulator.getNoOfProcesses()][4];
+        ArrayList<Process> processList = processSimulator.getProcessList();
+        String[][] processDetails = new String[processSimulator.getNoOfProcesses()][4];
         int i =0;
         for(Process process:processList){
             if(process.isFinished()){
                 processDetails[i][0]=Integer.toString(process.getProcessId());
-                processDetails[i][1]=Integer.toString(process.getWatitingTime(ProcessSimulator.getCurrentTime()));
-                processDetails[i][2]=Integer.toString(process.getTurnoaroundTime(ProcessSimulator.getCurrentTime()));
+                processDetails[i][1]=Integer.toString(process.getWatitingTime(processSimulator.getCurrentTime()));
+                processDetails[i][2]=Integer.toString(process.getTurnoaroundTime(processSimulator.getCurrentTime()));
                 processDetails[i][3]=Integer.toString(process.getFinishedTime());
                 i++;
             }
@@ -76,7 +80,7 @@ public class Controller {
     }
         
     public static String[][] getReadyQueue(){
-        ArrayList<Process> readyQueue = new ArrayList(ProcessSimulator.getScheduler().getReadyQueue());
+        ArrayList<Process> readyQueue = new ArrayList(processSimulator.getScheduler().getReadyQueue());
         String[][] readyQueueDet = new String[readyQueue.size()][2];
         
         for(int i=0; i<readyQueue.size(); i++){
@@ -90,7 +94,7 @@ public class Controller {
     
     public static String[][] getProcessLogs(int processId){
         
-        ArrayList<ExecutionLog> executionLogs = ProcessSimulator.getProcessList().get(processId-1).getExecutionLog();
+        ArrayList<ExecutionLog> executionLogs = processSimulator.getProcessList().get(processId-1).getExecutionLog();
         String[][] logDetails = new String[executionLogs.size()][2];
         int i =0;
         for(ExecutionLog log:executionLogs){
@@ -103,8 +107,18 @@ public class Controller {
         return logDetails;
     }
     
-    public static void createSimulator(int processNo, int time){
-        ProcessSimulator simulator = new ProcessSimulator(processNo, time);
+    public static void createSimulator(int processNo, int time, boolean automatic){
+        processSimulator = new ProcessSimulator(processNo, time, automatic);
+        if(automatic){            
+            startSimulation();
+        }
+        else{
+            AddProcess processAdder = new AddProcess();
+            processAdder.setVisible(true);
+        }
+    }
+    
+    public static void startSimulation(){
         Simulation sm =new Simulation();
         sm.setVisible(true);
     }
@@ -113,5 +127,8 @@ public class Controller {
         Launcher lr = new Launcher();
         lr.setVisible(true);
     }
-   
+    
+    public static void addProcess(int pId, int arrivalTime, int expectedTime, int remainingTime){
+        processSimulator.addProcess(pId, arrivalTime, expectedTime, remainingTime);
+    }
 }
