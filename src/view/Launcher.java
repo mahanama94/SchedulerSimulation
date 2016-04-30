@@ -36,6 +36,7 @@ public class Launcher extends javax.swing.JFrame {
         textNoOfProcesses = new javax.swing.JTextField();
         buttonSimulate = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        buttonManualAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,26 +60,39 @@ public class Launcher extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel3.setText("Shortest Remaining Time First Launcher");
 
+        buttonManualAdd.setText("Manually Add processes");
+        buttonManualAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonManualAddActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel3))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(jLabel2)
-                .addGap(54, 54, 54)
-                .addComponent(textNoOfProcesses, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jLabel1)
-                .addGap(57, 57, 57)
-                .addComponent(textSimulationTime, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(buttonSimulate))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textSimulationTime, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(80, 80, 80)
+                            .addComponent(jLabel2)
+                            .addGap(54, 54, 54)
+                            .addComponent(textNoOfProcesses, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(buttonManualAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonSimulate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,12 +103,15 @@ public class Launcher extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(textNoOfProcesses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(textSimulationTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(buttonSimulate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(buttonSimulate)
+                .addGap(18, 18, 18)
+                .addComponent(buttonManualAdd)
+                .addContainerGap())
         );
 
         setBounds(0, 0, 373, 278);
@@ -106,7 +123,8 @@ public class Launcher extends javax.swing.JFrame {
 
     private void buttonSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSimulateActionPerformed
         try{
-            Controller.createSimulator(Integer.parseInt(this.textNoOfProcesses.getText()), Integer.parseInt(this.textSimulationTime.getText()));
+            Controller.createSimulator(Integer.parseInt(this.textNoOfProcesses.getText()), Integer.parseInt(this.textSimulationTime.getText()), true);
+            this.setVisible(false);
         }catch(Exception e){
             //this.setVisible(false);
             ///Controller.launch();
@@ -116,6 +134,20 @@ public class Launcher extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_buttonSimulateActionPerformed
+
+    private void buttonManualAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManualAddActionPerformed
+        try{
+            Controller.createSimulator(Integer.parseInt(this.textNoOfProcesses.getText()), Integer.parseInt(this.textSimulationTime.getText()), false);
+            this.setVisible(false);
+        }catch(Exception e){
+            //this.setVisible(false);
+            ///Controller.launch();
+            this.textNoOfProcesses.setText("");
+            this.textSimulationTime.setText("");
+            JOptionPane.showMessageDialog(this,"Invalid inputs","Warning",2);
+            
+        }
+    }//GEN-LAST:event_buttonManualAddActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,6 +185,7 @@ public class Launcher extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonManualAdd;
     private javax.swing.JButton buttonSimulate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
