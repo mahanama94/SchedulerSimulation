@@ -15,7 +15,7 @@ import view.*;
  * @author wolfpack
  */
 public class Controller {
-    
+            
     //private static Simulation sm;
     
     public static void incrementTime(){
@@ -112,6 +112,10 @@ public class Controller {
     public static void launch(){
         Launcher lr = new Launcher();
         lr.setVisible(true);
+    }
+    
+    public  void Hello(){
+            System.out.println("Hello");
     }
    
 }
