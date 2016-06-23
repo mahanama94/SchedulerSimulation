@@ -26,7 +26,14 @@
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="401" max="32767" attributes="0"/>
+                      <EmptySpace pref="207" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="textPId" pref="50" max="32767" attributes="0"/>
                           <Component id="textArrivalTime" alignment="1" max="32767" attributes="0"/>
@@ -43,7 +50,7 @@
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="buttonStart" min="-2" pref="88" max="-2" attributes="0"/>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,15 +58,27 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Component id="textPId" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="textArrivalTime" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="textExpectedTime" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textPId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="textRemainingTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textArrivalTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textExpectedTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textRemainingTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -127,6 +146,26 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonStartActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Arrival Time"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Process Id "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Expected Time"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Remaining Time"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
